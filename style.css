@@ -6,3 +6,11 @@ body {
 	font-size: 90px;
 	margin: 30px auto;
 }
+
+.square {
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+	background: red;
+	margin: 20px 30px;
+}

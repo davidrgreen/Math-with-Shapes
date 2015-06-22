@@ -18,21 +18,40 @@
 
 		mathProblem.innerHTML = numberOne + ' + ' + numberTwo;
 
-		drawIllustration();
+		generateIllustration();
 	}
 
-	function drawIllustration() {
-		var toDraw, i, color;
+	function generateIllustration() {
+		var randomColor;
 
 		/* Give the illustration a blank canvas, so to speak */
 		mathIllustration.innerHTML = '';
 
 		randomColor = getRandomColor();
+		randomShape = getRandomShape();
 
-		for( i = 0; i < numberOne; i++ ) {
+		drawNumberIllustration( numberOne, randomColor, randomShape );
+
+		var problemType = document.createElement( "div" );
+		problemType.className = "problem-type";
+		problemType.appendChild( document.createTextNode( "+" ) );
+		mathIllustration.appendChild( problemType );
+
+		drawNumberIllustration( numberTwo, randomColor, randomShape );
+	}
+
+	function drawNumberIllustration( num, randomColor, randomShape ) {
+		var toDraw, i;
+
+		for( i = 0; i < num; i++ ) {
 			toDraw = document.createElement( 'div' );
-			toDraw.className = "square";
-			toDraw.style.background = randomColor;
+			toDraw.className = randomShape;
+			if ( randomShape === 'triangle' ) {
+				toDraw.style.borderColor = "transparent transparent " + randomColor + " transparent"
+			}
+			else {
+				toDraw.style.background = randomColor;
+			}
 			mathIllustration.appendChild(toDraw);
 		}
 	}
@@ -40,6 +59,11 @@
 	function getRandomColor() {
 		var colors = [ "blue", "red", "pink", "orange", "purple", "green" ];
 		return colors[ Math.floor( Math.random() * colors.length ) ];
+	}
+
+	function getRandomShape() {
+		var shapes = [ "square", "circle", "rectangle", "oval", "triangle" ];
+		return shapes[ Math.floor( Math.random() * shapes.length ) ];
 	}
 
 	/* Generate a number between 1 and the max argument */
@@ -60,10 +84,6 @@
 	</script>
 </head>
 <body onload="initiateMathWithShapes()">
-	<div class="math-problem" id="math-problem"></div>
-
-	<div class="math-illustration" id="math-illustration"></div>
-
 	<form class="math-form" id="math-form" onsubmit="">
 		<label for="user-answer">Your Answer: </label>
 		<input type="number" id="user-answer" value="0">
@@ -74,6 +94,10 @@
 	<button onclick="generateProblem()">Show New Math Problem</button>
 
 	<div class="math-result" id="math-result">
+	<div class="math-problem" id="math-problem"></div>
+
+	<div class="math-illustration" id="math-illustration"></div>
+
 
 	</div>
 </body>

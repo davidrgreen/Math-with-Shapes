@@ -3,35 +3,54 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Math with Shapes</title>
+	<link rel="stylesheet" href="style.css">
 	<script>
-	var numberone, numbertwo, answer;
 
-	numberone = generateNumber( 10 );
-	numbertwo = generateNumber( 10 );
+	var numberOne, numberTwo, answer;
+	/* vars to hold references to the HTML elements */
+	var mathProblem, mathIllustration, mathForm, mathResult;
 
-	answer = numberone + numbertwo;
 
+	function generateProblem() {
+		numberOne = generateNumber( 10 );
+		numberTwo = generateNumber( 10 );
+		answer = numberOne + numberTwo;
+
+		mathProblem.innerHTML = numberOne + ' + ' + numberTwo;
+	}
 
 	/* Generate a number between 1 and the max argument */
 	function generateNumber( max ) {
 		return Math.floor( Math.random( max ) * 10 ) + 1;
 	}
+
+	/* Set the vars needed to reference the HTML elements*/
+	function initiateMathWithShapes() {
+		mathProblem = document.getElementById( 'math-problem' );
+		mathIllustration = document.getElementById( 'math-illustration' );
+		mathForm = document.getElementById( 'math-form' );
+		mathResult = document.getElementById( 'math-result' );
+
+		generateProblem();
+	}
+
 	</script>
 </head>
-<body>
-	<div class="math-problem">
+<body onload="initiateMathWithShapes()">
+	<div class="math-problem" id="math-problem"></div>
 
-	</div>
+	<div class="math-illustration" id="math-illustration"></div>
 
-	<div class="math-illustration">
+	<form class="math-form" id="math-form" onsubmit="">
+		<label for="user-answer">Your Answer: </label>
+		<input type="number" id="user-answer" value="0">
+		<br>
+		<input type="submit" value="Submit Answer"> OR
+	</form>
+	<br><br>
+	<button onclick="generateProblem()">Show New Math Problem</button>
 
-	</div>
-
-	<div class="math-form">
-
-	</div>
-
-	<div class="math-result">
+	<div class="math-result" id="math-result">
 
 	</div>
 </body>

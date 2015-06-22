@@ -6,9 +6,16 @@
 	<script>
 	var numberone, numbertwo, answer;
 
-	numberone = Math.floor( Math.random( 10 ) * 10 ) + 1;
-	numbertwo = Math.floor( Math.random( 10 ) * 10 ) + 1;
-	console.log( numberone + ' ' + numbertwo );
+	numberone = generateNumber( 10 );
+	numbertwo = generateNumber( 10 );
+
+	answer = numberone + numbertwo;
+
+
+	/* Generate a number between 1 and the max argument */
+	function generateNumber( max ) {
+		return Math.floor( Math.random( max ) * 10 ) + 1;
+	}
 	</script>
 </head>
 <body>

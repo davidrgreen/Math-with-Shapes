@@ -1,3 +1,11 @@
+/**
+ * TODO:
+ * - Take vars out of the global namespace and put them in an object
+ * - Cache the answer field selector
+ * - Create the answer check function
+ * - Bind the answer check function
+ */
+
 var numberOne, numberTwo, answer;
 /* vars to hold references to the HTML elements */
 var mathProblem, mathIllustration, mathForm, mathResult;
@@ -71,4 +79,7 @@ function initiateMathWithShapes() {
 	mathResult = document.getElementById( 'math-result' );
 
 	generateProblem();
+
 }
+
+

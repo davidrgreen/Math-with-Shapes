@@ -49,7 +49,7 @@ function drawNumberIllustration( num, randomColor, randomShape ) {
 }
 
 function getRandomColor() {
-	var colors = [ "blue", "red", "pink", "orange", "purple", "green" ];
+	var colors = [ "blue", "red", "orange", "purple", "green" ];
 	return colors[ Math.floor( Math.random() * colors.length ) ];
 }
 

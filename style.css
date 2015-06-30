@@ -30,7 +30,9 @@ body {
 
 .math-problem {
 	font-size: 90px;
-	margin: 30px auto;
+	margin: 30px auto 40px;
+	padding-bottom: 40px;
+	border-bottom: solid 2px lightgray;
 }
 
 .math-illustration {
@@ -94,8 +96,8 @@ body {
 	width: 0;
 	height: 0;
 	margin: 10px 20px;
-	border-left: 50px solid transparent;
-	border-right: 50px solid transparent;
-	border-bottom: 100px solid red;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 50px solid red;
 }
 

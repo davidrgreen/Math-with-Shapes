@@ -16,9 +16,19 @@ function generateProblem() {
 	numberTwo = generateNumber( 10 );
 	answer = numberOne + numberTwo;
 
-	mathProblem.innerHTML = numberOne + ' + ' + numberTwo;
+	writeProblem();
 
 	generateIllustration();
+}
+
+function writeProblem( withAnswer, correct ) {
+	mathProblem.className = '';
+	if ( withAnswer === true ) {
+		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + numberOne + ' + ' + numberTwo + ' = ' + answer;
+	}
+	else {
+		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + numberOne + ' + ' + numberTwo;
+	}
 }
 
 function generateIllustration() {
@@ -76,10 +86,26 @@ function initiateMathWithShapes() {
 	mathProblem = document.getElementById( 'math-problem' );
 	mathIllustration = document.getElementById( 'math-illustration' );
 	mathForm = document.getElementById( 'math-form' );
+	userAnswer = document.getElementById( 'user-answer' );
 	mathResult = document.getElementById( 'math-result' );
+
+	mathForm.addEventListener( "submit", checkAnswer );
 
 	generateProblem();
 
 }
 
+function checkAnswer( event ) {
+	event.preventDefault();
+	if ( answer === parseInt( userAnswer.value) ) {
+		console.log( "CORRECT!" );
+		writeProblem( true, 'Correct!' );
+		mathProblem.className = 'problem-correct';
+	}
+	else {
+		console.log( "WRONG");
+		writeProblem( false, 'Try Again!' );
+		mathProblem.className = 'problem-incorrect';
+	}
+}
 

@@ -35,11 +35,11 @@ body {
 	border-bottom: solid 2px lightgray;
 }
 
-.correct {
+.problem-correct {
 	color: green;
 }
 
-.incorrect {
+.problem-incorrect {
 	color: red;
 }
 
@@ -47,10 +47,18 @@ body {
 	margin: 0 0 75px;
 }
 
+.math-illustration div:hover {
+	opacity: 0.5;
+}
+
 .problem-type {
 	font-size: 120px;
 	line-height: 1;
 	margin: 0 auto 24px auto;
+}
+
+div.problem-type:hover {
+	opacity: 1;
 }
 
 .square {

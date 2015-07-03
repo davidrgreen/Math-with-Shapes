@@ -1,20 +1,25 @@
 /**
  * TODO:
  * - Take vars out of the global namespace and put them in an object
- * - Cache the answer field selector
- * - Create the answer check function
- * - Bind the answer check function
+ * - Keep track of total right and wrong answers each session
+ * - Log sessions to local storage
+ * - Make able to toggle opacity of shapes on click/touch
  */
 
-var numberOne, numberTwo, answer;
+var MathWithShapes = {
+	numberOne: null,
+	numberTwo: null,
+	answer: null
+}
+
 /* vars to hold references to the HTML elements */
 var mathProblem, mathIllustration, mathForm, mathResult;
 
 
 function generateProblem() {
-	numberOne = generateNumber( 10 );
-	numberTwo = generateNumber( 10 );
-	answer = numberOne + numberTwo;
+	MathWithShapes.numberOne = generateNumber( 10 );
+	MathWithShapes.numberTwo = generateNumber( 10 );
+	MathWithShapes.answer = MathWithShapes.numberOne + MathWithShapes.numberTwo;
 
 	writeProblem();
 
@@ -24,10 +29,10 @@ function generateProblem() {
 function writeProblem( withAnswer, correct ) {
 	mathProblem.className = '';
 	if ( withAnswer === true ) {
-		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + numberOne + ' + ' + numberTwo + ' = ' + answer;
+		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + MathWithShapes.numberOne + ' + ' + MathWithShapes.numberTwo + ' = ' + MathWithShapes.answer;
 	}
 	else {
-		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + numberOne + ' + ' + numberTwo;
+		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + MathWithShapes.numberOne + ' + ' + MathWithShapes.numberTwo;
 	}
 }
 
@@ -40,14 +45,14 @@ function generateIllustration() {
 	randomColor = getRandomColor();
 	randomShape = getRandomShape();
 
-	drawNumberIllustration( numberOne, randomColor, randomShape );
+	drawNumberIllustration( MathWithShapes.numberOne, randomColor, randomShape );
 
 	var problemType = document.createElement( "div" );
 	problemType.className = "problem-type";
 	problemType.appendChild( document.createTextNode( "+" ) );
 	mathIllustration.appendChild( problemType );
 
-	drawNumberIllustration( numberTwo, randomColor, randomShape );
+	drawNumberIllustration( MathWithShapes.numberTwo, randomColor, randomShape );
 }
 
 function drawNumberIllustration( num, randomColor, randomShape ) {
@@ -97,14 +102,12 @@ function initiateMathWithShapes() {
 
 function checkAnswer( event ) {
 	event.preventDefault();
-	if ( answer === parseInt( userAnswer.value) ) {
-		console.log( "CORRECT!" );
-		writeProblem( true, 'Correct!' );
+	if ( MathWithShapes.answer === parseInt( userAnswer.value) ) {
+		writeProblem( true, '&check;' );
 		mathProblem.className = 'problem-correct';
 	}
 	else {
-		console.log( "WRONG");
-		writeProblem( false, 'Try Again!' );
+		writeProblem( false, '&cross; Try Again!' );
 		mathProblem.className = 'problem-incorrect';
 	}
 }

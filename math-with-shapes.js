@@ -60,7 +60,7 @@ function drawNumberIllustration( num, randomColor, randomShape ) {
 
 	for( i = 0; i < num; i++ ) {
 		toDraw = document.createElement( 'div' );
-		toDraw.className = randomShape;
+		toDraw.className = randomShape + " illustration-shape";
 		if ( randomShape === 'triangle' ) {
 			toDraw.style.borderColor = "transparent transparent " + randomColor + " transparent";
 		}

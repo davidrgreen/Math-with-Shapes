@@ -27,6 +27,7 @@ function generateProblem() {
 	generateIllustration();
 	addToggleOnClick();
 	countClicked();
+	userAnswer.value = '';
 }
 
 function writeProblem( withAnswer, correct ) {

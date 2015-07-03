@@ -9,8 +9,9 @@
 var MathWithShapes = {
 	numberOne: null,
 	numberTwo: null,
-	answer: null
-}
+	answer: null,
+	totalClicked: 0,
+};
 
 /* vars to hold references to the HTML elements */
 var mathProblem, mathIllustration, mathForm, mathResult;
@@ -24,6 +25,7 @@ function generateProblem() {
 	writeProblem();
 
 	generateIllustration();
+	addToggleOnClick();
 }
 
 function writeProblem( withAnswer, correct ) {
@@ -60,7 +62,7 @@ function drawNumberIllustration( num, randomColor, randomShape ) {
 
 	for( i = 0; i < num; i++ ) {
 		toDraw = document.createElement( 'div' );
-		toDraw.className = randomShape + " illustration-shape";
+		toDraw.className = randomShape + " math-illustration-shape";
 		if ( randomShape === 'triangle' ) {
 			toDraw.style.borderColor = "transparent transparent " + randomColor + " transparent";
 		}
@@ -93,6 +95,7 @@ function initiateMathWithShapes() {
 	mathForm = document.getElementById( 'math-form' );
 	userAnswer = document.getElementById( 'user-answer' );
 	mathResult = document.getElementById( 'math-result' );
+	manualCount = document.getElementById( 'manual-count' );
 
 	mathForm.addEventListener( "submit", checkAnswer );
 
@@ -112,3 +115,28 @@ function checkAnswer( event ) {
 	}
 }
 
+
+/* Look into whether it's a memory leak to add these event listeners but never remove them manually. I think they should be removed when the previous problem's shapes are erased, but I want to be sure.*/
+function addToggleOnClick() {
+	$( '.math-illustration-shape' ).on( "click", function() {
+		$( this ).toggleClass('clicked-shape');
+		countClicked();
+	} );
+}
+
+function countClicked() {
+	MathWithShapes.totalClicked = $( '.math-illustration .clicked-shape' ).length;
+
+		if( MathWithShapes.totalClicked > 0 ) {
+			manualCount.innerHTML = "<p>You've counted</p><p class='manual-count-number'>" + MathWithShapes.totalClicked +"</p><button id='resetCount' onclick='startOverCounting()'>Start Over Counting</button>";
+
+		}
+		else {
+			manualCount.innerHTML = "";
+		}
+}
+
+function startOverCounting() {
+	$( '.math-illustration-shape' ).removeClass('clicked-shape');
+	countClicked();
+}

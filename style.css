@@ -47,7 +47,7 @@ body {
 	margin: 0 0 75px;
 }
 
-.math-illustration div:hover {
+.clicked-shape {
 	opacity: 0.5;
 }
 
@@ -57,8 +57,12 @@ body {
 	margin: 0 auto 24px auto;
 }
 
-div.problem-type:hover {
-	opacity: 1;
+.manual-count p {
+	font-size: 25px;
+}
+
+p.manual-count-number {
+	font-size: 40px;
 }
 
 .square {

@@ -103,6 +103,7 @@ function initiateMathWithShapes() {
 	mathForm = document.getElementById( 'math-form' );
 	userAnswer = document.getElementById( 'user-answer' );
 	mathResult = document.getElementById( 'math-result' );
+	mathRecord = document.getElementById( 'math-record' );
 	manualCount = document.getElementById( 'manual-count' );
 
 	mathForm.addEventListener( "submit", checkAnswer );
@@ -125,6 +126,7 @@ function checkAnswer( event ) {
 		mathProblem.className = 'problem-incorrect';
 	}
 	MathWithShapes.answeredAlready = true;
+	mathRecord.innerText = MathWithShapes.totalCorrect + ' / ' + MathWithShapes.totalGenerated;
 }
 
 

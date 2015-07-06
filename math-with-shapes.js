@@ -11,6 +11,9 @@ var MathWithShapes = {
 	numberTwo: null,
 	answer: null,
 	totalClicked: 0,
+	totalGenerated: 0,
+	totalCorrect: 0,
+	answeredAlready: false
 };
 
 /* vars to hold references to the HTML elements */
@@ -21,6 +24,9 @@ function generateProblem() {
 	MathWithShapes.numberOne = generateNumber( 10 );
 	MathWithShapes.numberTwo = generateNumber( 10 );
 	MathWithShapes.answer = MathWithShapes.numberOne + MathWithShapes.numberTwo;
+
+	MathWithShapes.totalGenerated += 1;
+	MathWithShapes.answeredAlready = false;
 
 	writeProblem();
 
@@ -110,11 +116,15 @@ function checkAnswer( event ) {
 	if ( MathWithShapes.answer === parseInt( userAnswer.value) ) {
 		writeProblem( true, '&check;' );
 		mathProblem.className = 'problem-correct';
+		if ( MathWithShapes.answeredAlready === false ) {
+			MathWithShapes.totalCorrect += 1;
+		}
 	}
 	else {
 		writeProblem( false, '&cross; Try Again!' );
 		mathProblem.className = 'problem-incorrect';
 	}
+	MathWithShapes.answeredAlready = true;
 }
 
 

@@ -142,7 +142,7 @@ MathWithShapes.countClicked = function() {
 	MathWithShapes.totalClicked = $( '.math-illustration .clicked-shape' ).length;
 
 		if( MathWithShapes.totalClicked > 0 ) {
-			manualCount.innerHTML = "<p>You've counted</p><p class='manual-count-number'>" + MathWithShapes.totalClicked +"</p><button id='resetCount' onclick='startOverCounting()'>Start Over Counting</button>";
+			manualCount.innerHTML = "<p>You've counted</p><p class='manual-count-number'>" + MathWithShapes.totalClicked +"</p><button id='resetCount' onclick='MathWithShapes.startOverCounting()'>Start Over Counting</button>";
 
 		}
 		else {

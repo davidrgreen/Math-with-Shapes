@@ -20,23 +20,23 @@ var MathWithShapes = {
 var mathProblem, mathIllustration, mathForm, mathResult;
 
 
-function generateProblem() {
-	MathWithShapes.numberOne = generateNumber( 10 );
-	MathWithShapes.numberTwo = generateNumber( 10 );
+MathWithShapes.generateProblem = function() {
+	MathWithShapes.numberOne = MathWithShapes.generateNumber( 10 );
+	MathWithShapes.numberTwo = MathWithShapes.generateNumber( 10 );
 	MathWithShapes.answer = MathWithShapes.numberOne + MathWithShapes.numberTwo;
 
 	MathWithShapes.totalGenerated += 1;
 	MathWithShapes.answeredAlready = false;
 
-	writeProblem();
+	MathWithShapes.writeProblem();
 
-	generateIllustration();
-	addToggleOnClick();
-	countClicked();
+	MathWithShapes.generateIllustration();
+	MathWithShapes.addToggleOnClick();
+	MathWithShapes.countClicked();
 	userAnswer.value = '';
-}
+};
 
-function writeProblem( withAnswer, correct ) {
+MathWithShapes.writeProblem = function( withAnswer, correct ) {
 	mathProblem.className = '';
 	if ( withAnswer === true ) {
 		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + MathWithShapes.numberOne + ' + ' + MathWithShapes.numberTwo + ' = ' + MathWithShapes.answer;
@@ -44,28 +44,28 @@ function writeProblem( withAnswer, correct ) {
 	else {
 		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + MathWithShapes.numberOne + ' + ' + MathWithShapes.numberTwo;
 	}
-}
+};
 
-function generateIllustration() {
+MathWithShapes.generateIllustration = function() {
 	var randomColor;
 
 	/* Give the illustration a blank canvas, so to speak */
 	mathIllustration.innerHTML = '';
 
-	randomColor = getRandomColor();
-	randomShape = getRandomShape();
+	randomColor = MathWithShapes.getRandomColor();
+	randomShape = MathWithShapes.getRandomShape();
 
-	drawNumberIllustration( MathWithShapes.numberOne, randomColor, randomShape );
+	MathWithShapes.drawNumberIllustration( MathWithShapes.numberOne, randomColor, randomShape );
 
 	var problemType = document.createElement( "div" );
 	problemType.className = "problem-type";
 	problemType.appendChild( document.createTextNode( "+" ) );
 	mathIllustration.appendChild( problemType );
 
-	drawNumberIllustration( MathWithShapes.numberTwo, randomColor, randomShape );
-}
+	MathWithShapes.drawNumberIllustration( MathWithShapes.numberTwo, randomColor, randomShape );
+};
 
-function drawNumberIllustration( num, randomColor, randomShape ) {
+MathWithShapes.drawNumberIllustration = function( num, randomColor, randomShape ) {
 	var toDraw, i;
 
 	for( i = 0; i < num; i++ ) {
@@ -79,25 +79,25 @@ function drawNumberIllustration( num, randomColor, randomShape ) {
 		}
 		mathIllustration.appendChild(toDraw);
 	}
-}
+};
 
-function getRandomColor() {
+MathWithShapes.getRandomColor = function() {
 	var colors = [ "blue", "red", "orange", "purple", "green" ];
 	return colors[ Math.floor( Math.random() * colors.length ) ];
-}
+};
 
-function getRandomShape() {
+MathWithShapes.getRandomShape = function() {
 	var shapes = [ "square", "circle", "rectangle", "oval", "triangle" ];
 	return shapes[ Math.floor( Math.random() * shapes.length ) ];
-}
+};
 
 /* Generate a number between 1 and the max argument */
-function generateNumber( max ) {
+MathWithShapes.generateNumber = function( max ) {
 	return Math.floor( Math.random() * max ) + 1;
-}
+};
 
 /* Set the vars needed to reference the HTML elements*/
-function initiateMathWithShapes() {
+MathWithShapes.initiateMathWithShapes = function() {
 	mathProblem = document.getElementById( 'math-problem' );
 	mathIllustration = document.getElementById( 'math-illustration' );
 	mathForm = document.getElementById( 'math-form' );
@@ -106,39 +106,39 @@ function initiateMathWithShapes() {
 	mathRecord = document.getElementById( 'math-record' );
 	manualCount = document.getElementById( 'manual-count' );
 
-	mathForm.addEventListener( "submit", checkAnswer );
+	mathForm.addEventListener( "submit", MathWithShapes.checkAnswer );
 
-	generateProblem();
+	MathWithShapes.generateProblem();
 
-}
+};
 
-function checkAnswer( event ) {
+MathWithShapes.checkAnswer = function( event ) {
 	event.preventDefault();
 	if ( MathWithShapes.answer === parseInt( userAnswer.value) ) {
-		writeProblem( true, '&check;' );
+		MathWithShapes.writeProblem( true, '&check;' );
 		mathProblem.className = 'problem-correct';
 		if ( MathWithShapes.answeredAlready === false ) {
 			MathWithShapes.totalCorrect += 1;
 		}
 	}
 	else {
-		writeProblem( false, '&cross; Try Again!' );
+		MathWithShapes.writeProblem( false, '&cross; Try Again!' );
 		mathProblem.className = 'problem-incorrect';
 	}
 	MathWithShapes.answeredAlready = true;
 	mathRecord.innerText = MathWithShapes.totalCorrect + ' / ' + MathWithShapes.totalGenerated;
-}
+};
 
 
 /* Look into whether it's a memory leak to add these event listeners but never remove them manually. I think they should be removed when the previous problem's shapes are erased, but I want to be sure.*/
-function addToggleOnClick() {
+MathWithShapes.addToggleOnClick = function() {
 	$( '.math-illustration-shape' ).on( "click", function() {
 		$( this ).toggleClass('clicked-shape');
-		countClicked();
+		MathWithShapes.countClicked();
 	} );
-}
+};
 
-function countClicked() {
+MathWithShapes.countClicked = function() {
 	MathWithShapes.totalClicked = $( '.math-illustration .clicked-shape' ).length;
 
 		if( MathWithShapes.totalClicked > 0 ) {
@@ -148,9 +148,9 @@ function countClicked() {
 		else {
 			manualCount.innerHTML = "";
 		}
-}
+};
 
-function startOverCounting() {
+MathWithShapes.startOverCounting = function() {
 	$( '.math-illustration-shape' ).removeClass('clicked-shape');
-	countClicked();
-}
+	MathWithShapes.countClicked();
+};

@@ -7,14 +7,14 @@
 	<script src="jquery.js"></script>
 	<script src="math-with-shapes.js"></script>
 </head>
-<body onload="initiateMathWithShapes()">
+<body onload="MathWithShapes.initiateMathWithShapes()">
 	<form class="math-form" id="math-form">
 		<label for="user-answer">Your Answer: </label>
 		<input type="number" id="user-answer" value="0">
 		<input id="submit-answer" type="submit" value="Submit Answer"><br>
 	</form>
 	<br><br>
-	<button onclick="generateProblem()">Show Next Problem</button> Answered <span id="math-record">0</span> so far on first try
+	<button onclick="MathWithShapes.generateProblem()">Show Next Problem</button> Answered <span id="math-record">0</span> so far on first try
 
 	<div class="math-result" id="math-result"></div>
 	<div class="math-problem" id="math-problem"></div>

@@ -159,5 +159,9 @@ MathWithShapes.startOverCounting = function() {
 };
 
 MathWithShapes.openModal = function( modal ) {
+	$(modal).fadeIn( 'fast' );
+};
 
-}
+MathWithShapes.closeModal = function( modal ) {
+	$(modal).fadeOut( 'fast' );
+};

@@ -31,16 +31,16 @@ MathWithShapes.generateProblem = function() {
 	MathWithShapes.generateIllustration();
 	MathWithShapes.addToggleOnClick();
 	MathWithShapes.countClicked();
-	userAnswer.value = '';
+	MathWithShapes.cachedSelectors.userAnswer.value = '';
 };
 
 MathWithShapes.writeProblem = function( withAnswer, correct ) {
-	mathProblem.className = '';
+	MathWithShapes.cachedSelectors.mathProblem.className = '';
 	if ( withAnswer === true ) {
-		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + MathWithShapes.numberOne + ' + ' + MathWithShapes.numberTwo + ' = ' + MathWithShapes.answer;
+		MathWithShapes.cachedSelectors.mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + MathWithShapes.numberOne + ' + ' + MathWithShapes.numberTwo + ' = ' + MathWithShapes.answer;
 	}
 	else {
-		mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + MathWithShapes.numberOne + ' + ' + MathWithShapes.numberTwo;
+		MathWithShapes.cachedSelectors.mathProblem.innerHTML = ( correct ? correct + ' ' : '' ) + MathWithShapes.numberOne + ' + ' + MathWithShapes.numberTwo;
 	}
 };
 
@@ -95,14 +95,15 @@ MathWithShapes.generateNumber = function( max ) {
 };
 
 MathWithShapes.cacheSelectors = function() {
-	mathProblem = document.getElementById( 'math-problem' );
+	MathWithShapes.cachedSelectors.mathProblem = document.getElementById( 'math-problem' );
 	MathWithShapes.cachedSelectors.mathIllustration = document.getElementById( 'math-illustration' );
 	MathWithShapes.cachedSelectors.mathForm = document.getElementById( 'math-form' );
-	userAnswer = document.getElementById( 'user-answer' );
+	MathWithShapes.cachedSelectors.userAnswer = document.getElementById( 'user-answer' );
 	MathWithShapes.cachedSelectors.mathResult = document.getElementById( 'math-result' );
-	mathRecord = document.getElementById( 'math-record' );
-	manualCount = document.getElementById( 'manual-count' );
-}
+	MathWithShapes.cachedSelectors.mathRecord = document.getElementById( 'math-record' );
+	MathWithShapes.cachedSelectors.manualCount = document.getElementById( 'manual-count' );
+	MathWithShapes.resultsModal = document.getElementById( 'math-results-modal' );
+};
 
 /* Set the vars needed to reference the HTML elements*/
 MathWithShapes.initiateMathWithShapes = function() {
@@ -116,19 +117,19 @@ MathWithShapes.initiateMathWithShapes = function() {
 
 MathWithShapes.checkAnswer = function( event ) {
 	event.preventDefault();
-	if ( MathWithShapes.answer === parseInt( userAnswer.value) ) {
+	if ( MathWithShapes.answer === parseInt( MathWithShapes.cachedSelectors.userAnswer.value) ) {
 		MathWithShapes.writeProblem( true, '&check;' );
-		mathProblem.className = 'problem-correct';
+		MathWithShapes.cachedSelectors.mathProblem.className = 'problem-correct';
 		if ( MathWithShapes.answeredAlready === false ) {
 			MathWithShapes.totalCorrect += 1;
 		}
 	}
 	else {
 		MathWithShapes.writeProblem( false, '&cross; Try Again!' );
-		mathProblem.className = 'problem-incorrect';
+		MathWithShapes.cachedSelectors.mathProblem.className = 'problem-incorrect';
 	}
 	MathWithShapes.answeredAlready = true;
-	mathRecord.innerText = MathWithShapes.totalCorrect + ' / ' + MathWithShapes.totalGenerated;
+	MathWithShapes.cachedSelectors.mathRecord.innerText = MathWithShapes.totalCorrect + ' / ' + MathWithShapes.totalGenerated;
 };
 
 
@@ -144,11 +145,11 @@ MathWithShapes.countClicked = function() {
 	MathWithShapes.totalClicked = $( '.math-illustration .clicked-shape' ).length;
 
 		if( MathWithShapes.totalClicked > 0 ) {
-			manualCount.innerHTML = "<p>You've counted</p><p class='manual-count-number'>" + MathWithShapes.totalClicked +"</p><button id='resetCount' onclick='MathWithShapes.startOverCounting()'>Start Over Counting</button>";
+			MathWithShapes.cachedSelectors.manualCount.innerHTML = "<p>You've counted</p><p class='manual-count-number'>" + MathWithShapes.totalClicked +"</p><button id='resetCount' onclick='MathWithShapes.startOverCounting()'>Start Over Counting</button>";
 
 		}
 		else {
-			manualCount.innerHTML = "";
+			MathWithShapes.cachedSelectors.manualCount.innerHTML = "";
 		}
 };
 
@@ -156,3 +157,7 @@ MathWithShapes.startOverCounting = function() {
 	$( '.math-illustration-shape' ).removeClass('clicked-shape');
 	MathWithShapes.countClicked();
 };
+
+MathWithShapes.openModal = function( modal ) {
+
+}

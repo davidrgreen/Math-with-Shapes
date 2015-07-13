@@ -13,11 +13,9 @@ var MathWithShapes = {
 	totalClicked: 0,
 	totalGenerated: 0,
 	totalCorrect: 0,
-	answeredAlready: false
+	answeredAlready: false,
+	cachedSelectors: {}
 };
-
-/* vars to hold references to the HTML elements */
-var mathProblem, mathIllustration, mathForm, mathResult;
 
 
 MathWithShapes.generateProblem = function() {
@@ -50,7 +48,7 @@ MathWithShapes.generateIllustration = function() {
 	var randomColor;
 
 	/* Give the illustration a blank canvas, so to speak */
-	mathIllustration.innerHTML = '';
+	MathWithShapes.cachedSelectors.mathIllustration.innerHTML = '';
 
 	randomColor = MathWithShapes.getRandomColor();
 	randomShape = MathWithShapes.getRandomShape();
@@ -60,7 +58,7 @@ MathWithShapes.generateIllustration = function() {
 	var problemType = document.createElement( "div" );
 	problemType.className = "problem-type";
 	problemType.appendChild( document.createTextNode( "+" ) );
-	mathIllustration.appendChild( problemType );
+	MathWithShapes.cachedSelectors.mathIllustration.appendChild( problemType );
 
 	MathWithShapes.drawNumberIllustration( MathWithShapes.numberTwo, randomColor, randomShape );
 };
@@ -77,7 +75,7 @@ MathWithShapes.drawNumberIllustration = function( num, randomColor, randomShape 
 		else {
 			toDraw.style.background = randomColor;
 		}
-		mathIllustration.appendChild(toDraw);
+		MathWithShapes.cachedSelectors.mathIllustration.appendChild(toDraw);
 	}
 };
 
@@ -96,17 +94,21 @@ MathWithShapes.generateNumber = function( max ) {
 	return Math.floor( Math.random() * max ) + 1;
 };
 
-/* Set the vars needed to reference the HTML elements*/
-MathWithShapes.initiateMathWithShapes = function() {
+MathWithShapes.cacheSelectors = function() {
 	mathProblem = document.getElementById( 'math-problem' );
-	mathIllustration = document.getElementById( 'math-illustration' );
-	mathForm = document.getElementById( 'math-form' );
+	MathWithShapes.cachedSelectors.mathIllustration = document.getElementById( 'math-illustration' );
+	MathWithShapes.cachedSelectors.mathForm = document.getElementById( 'math-form' );
 	userAnswer = document.getElementById( 'user-answer' );
-	mathResult = document.getElementById( 'math-result' );
+	MathWithShapes.cachedSelectors.mathResult = document.getElementById( 'math-result' );
 	mathRecord = document.getElementById( 'math-record' );
 	manualCount = document.getElementById( 'manual-count' );
+}
 
-	mathForm.addEventListener( "submit", MathWithShapes.checkAnswer );
+/* Set the vars needed to reference the HTML elements*/
+MathWithShapes.initiateMathWithShapes = function() {
+	MathWithShapes.cacheSelectors();
+
+	MathWithShapes.cachedSelectors.mathForm.addEventListener( "submit", MathWithShapes.checkAnswer );
 
 	MathWithShapes.generateProblem();
 

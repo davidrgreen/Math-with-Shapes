@@ -14,7 +14,8 @@ var MathWithShapes = {
 	totalGenerated: 0,
 	totalCorrect: 0,
 	answeredAlready: false,
-	cachedSelectors: {}
+	cachedSelectors: {},
+	modalShown: false
 };
 
 
@@ -110,9 +111,20 @@ MathWithShapes.initiateMathWithShapes = function() {
 	MathWithShapes.cacheSelectors();
 
 	MathWithShapes.cachedSelectors.mathForm.addEventListener( "submit", MathWithShapes.checkAnswer );
+	document.body.addEventListener("keyup", MathWithShapes.keysWerePressed, false);
 
 	MathWithShapes.generateProblem();
 
+};
+
+MathWithShapes.keysWerePressed = function() {
+	// Decide on a specific key to use instead of intercepting all keys.
+	if ( MathWithShapes.modalShown === false ) {
+		return false;
+	}
+	else {
+		MathWithShapes.closeModal( MathWithShapes.modalShown  );
+	}
 };
 
 MathWithShapes.checkAnswer = function( event ) {
@@ -160,8 +172,10 @@ MathWithShapes.startOverCounting = function() {
 
 MathWithShapes.openModal = function( modal ) {
 	$(modal).fadeIn( 'fast' );
+	MathWithShapes.modalShown = modal;
 };
 
 MathWithShapes.closeModal = function( modal ) {
 	$(modal).fadeOut( 'fast' );
+	MathWithShapes.modalShown = false;
 };

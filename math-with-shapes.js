@@ -33,6 +33,9 @@ MathWithShapes.generateProblem = function() {
 	MathWithShapes.addToggleOnClick();
 	MathWithShapes.countClicked();
 	MathWithShapes.cachedSelectors.userAnswer.value = '';
+	if ( totalGenerated >2 ) {
+		MathWithshapes.displayRecord();
+	}
 };
 
 MathWithShapes.writeProblem = function( withAnswer, correct ) {
@@ -141,8 +144,12 @@ MathWithShapes.checkAnswer = function( event ) {
 		MathWithShapes.cachedSelectors.mathProblem.className = 'problem-incorrect';
 	}
 	MathWithShapes.answeredAlready = true;
-	MathWithShapes.cachedSelectors.mathRecord.innerText = MathWithShapes.totalCorrect + ' / ' + MathWithShapes.totalGenerated;
+	MathWithShapes.displayRecord();
 };
+
+MathWithShapes.displayRecord = function() {
+	MathWithShapes.cachedSelectors.mathRecord.innerHTML = 'Answered ' + MathWithShapes.totalCorrect + ' / ' + MathWithShapes.totalGenerated + ' (' + Math.round( MathWithShapes.totalCorrect / MathWithShapes.totalGenerated * 100 ) + '%) correct so far';
+}
 
 
 /* Look into whether it's a memory leak to add these event listeners but never remove them manually. I think they should be removed when the previous problem's shapes are erased, but I want to be sure.*/

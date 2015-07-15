@@ -121,6 +121,11 @@ p.manual-count-number {
 	border-bottom: 50px solid red;
 }
 
+#math-record {
+	padding-top: 15px;
+	display: block;
+}
+
 .math-modal {
 	position: fixed;
 	top: 0;
